@@ -1,0 +1,86 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <!--first part-->
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div *ngIf="isAddMode">
+                    <h1>Create User</h1>
+                </div>
+                <div *ngIf="!isAddMode">
+                    <h1>Update User</h1>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary mr-1" type="submit"  (click)="onSubmit()" ><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-danger mr-1" type="button" (click)="cancelAction()"><i class="fas fa-ban"></i> Cancel </button>
+                <button class="btn btn-secondary" type="button" (click)="reset()"><i class="fas fa-sync-alt"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- accordion -->
+    <div class="mt-3">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="accordion" class="mat-elevation-z8" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link bt" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Personal Information
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field style="width: 73%" class="margin_form">
+                                            <mat-label for="fullname">Full Name:</mat-label>
+                                            <input  matInput type="text"  formControlName="fullname" id="fullname" placeholder="Full Name">
+                                            <div *ngIf="userForm.controls['fullname'].errors &&
+                                               !userForm.controls['fullname'].pristine">
+                                                <span style="color: red;" *ngIf="userForm.controls['fullname'].errors.required">the email was required</span>
+                                            </div>
+                                        </mat-form-field>
+                                        <mat-form-field style="width: 73%;" class="margin_form">
+                                            <mat-label for="email">Email:</mat-label>
+                                            <input type="email" matInput formControlName="email" id="email" placeholder="Email">
+                                            <div *ngIf="userForm.controls['email'].errors && !userForm.controls['email'].pristine">
+                                                <span style="color: red;" *ngIf="userForm.controls['email'].errors.required">the email was required</span>
+                                                <span style="color: red;" *ngIf="userForm.controls['email'].errors.patternInvalid">the email is invalid</span>
+                                                <span style="color: red;" *ngIf="userForm.controls['email'].errors.duplicatedEmail">the email was token</span>
+                                            </div>
+                                        </mat-form-field>
+                                        <mat-form-field style="width: 73%;" class="margin_form">
+                                            <mat-label for="password">Password:</mat-label>
+                                          <input  type="password" matInput formControlName="password" id="password" placeholder="Password">
+                                            <div *ngIf="userForm.controls['password'].errors && !userForm.controls['password'].pristine">
+                                                <span style="color: red;" *ngIf="userForm.controls['password'].errors.required">the password was required</span>
+                                                <span style="color: red;" *ngIf="userForm.controls['password'].errors.minlength">you must enter more or equal than 8 character</span>
+                                                <span style="color: red;" *ngIf="userForm.controls['password'].errors.maxlength">you must enter less or equal than 14 character</span>
+                                                <span style="color: red;" *ngIf="userForm.controls['password'].errors.invalidPattern">the password is invalid</span>
+                                            </div>
+                                        </mat-form-field>
+                                        <div class="form-group margin_form">
+                                            <input type="file"   formControlName="file" (change)="onChangeFile($event)">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 margin_form_button margin_top_form">
+                                        <img *ngIf="!isAddMode && !toggleMode" class="showImage"  src="data:image/jpeg;base64,{{image}}">
+                                        <img *ngIf="!changeImage && isAddMode" class="showImage"  src="https://thumbs.dreamstime.com/b/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg" class="showImage">
+                                        <img *ngIf="changeImage && toggleMode" [src]="url" class="showImage">
+                                        <div *ngIf="userForm.controls['file'].errors && !userForm.controls['file'].pristine">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

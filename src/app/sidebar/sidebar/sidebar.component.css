@@ -1,0 +1,26 @@
+.sidebar_menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.sidebar_menu.menu-list {
+    flex: 2;
+    justify-content: normal;
+    height: 100%;
+}
+
+
+.sidebar_menu.icon {
+    padding: 0 10px 0 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sidebar_menu.label {
+    margin: 0;
+}
+
+.sidebar_menu.active-list-item {
+    color: #3f51b5 !important;
+}

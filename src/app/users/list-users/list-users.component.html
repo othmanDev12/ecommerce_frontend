@@ -1,0 +1,67 @@
+<!-- first part -->
+<div class="mt-4">
+    <div class="row justify-content-between">
+        <div class="col-md-10">
+            <h1>Users</h1>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success" (click)="onAddUser()">
+                <i class="fas fa-plus"></i> Create New User
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Search Input  -->
+<div class="mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+          <mat-form-field class="input-width">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Type what you want..." [(ngModel)]="filteringValue"
+             (input)="filteringWithFullName(filteringValue)">
+          </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<!--table that hold the data -->
+<div class="mt-1">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+          <table style="width: 100%" mat-table [dataSource]="listUsers" matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef> image</th>
+              <td mat-cell *matCellDef="let user "><img class="image" src="data:image/jpeg;base64,{{user.image}}"> </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef > email</th>
+              <td *matCellDef="let user "> {{user.email}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullname">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > full Name</th>
+              <td mat-cell *matCellDef="let user "> {{user.fullname}}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action</th>
+              <td mat-cell *matCellDef="let user "><button class="btn btn-warning btn-sm" (click)="onShowDetail(user.userId)">details</button> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator
+            class="mat-elevation-z8"
+            [length]="totalElements"
+            [pageSize]="size"
+            [pageSizeOptions]="[6 , 12 , 20  , 30 ,  40]"
+            (page)="pageEvent = $event ; onPaginateChange($event)"
+            showFirstLastButtons>
+
+          </mat-paginator>
+        </div>
+    </div>
+</div>
+
+

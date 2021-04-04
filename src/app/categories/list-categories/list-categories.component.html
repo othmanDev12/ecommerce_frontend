@@ -1,0 +1,55 @@
+<!-- first part -->
+<div class="mt-4">
+    <div class="row justify-content-between">
+        <div class="col-md-8">
+            <h1>Categories</h1>
+        </div>
+        <div class="col-md-3 ml-5">
+            <button class="btn btn-success" (click)="createCategory()">
+                <i class="fas fa-plus"></i> Create New Category
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="mt-2">
+    <div class="row ">
+        <div class="col-md-11">
+          <mat-form-field class="input-width">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Type what you want..." [(ngModel)]="filteringValue"
+            (input)="onFilteringWithCategoryName(filteringValue)">
+          </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="mt-1">
+    <div class="row ">
+        <div class="col-md-11">
+            <table mat-table style="width: 100%" [dataSource]="categories" class="mat-elevation-z8">
+              <ng-container matColumnDef="categoryName">
+                <th mat-header-cell *matHeaderCellDef> Category Name </th>
+                <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let category"> <button class="btn btn-warning btn-sm" (click)="detailCategory(category.categoryId)">details</button>  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="categoryColums"></tr>
+              <tr mat-row *matRowDef="let category; columns: categoryColums"></tr>
+            </table>
+          <mat-paginator
+            class="mat-elevation-z8"
+            [length]="totalElements"
+            [pageSize]="size"
+            [pageSizeOptions]="[6 , 12 , 20  , 30 ,  40]"
+            (page)="pageEvent = $event ; onPaginateChange($event)"
+            showFirstLastButtons>
+
+          </mat-paginator>
+        </div>
+    </div>
+</div>

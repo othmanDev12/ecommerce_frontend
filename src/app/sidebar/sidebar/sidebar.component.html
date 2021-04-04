@@ -1,0 +1,29 @@
+
+<mat-nav-list mode="side" opened="true" style="min-width:60px;  background: #F3F3F3;" autosize fixedTopGap="56">
+  <div class="sidebar_menu"  [@onSideNavChange]="sideNavState">
+    <mat-nav-list class="menu-list">
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="dashbord" title="Dashboard">
+        <span class="label" [@labelAnimation]="sideNavState">Dashboard</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="admin/listUsers" title="Users">
+        <span class="label" [@labelAnimation]="sideNavState">Users</span>
+      </a>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="admin/listCategories" title="Categories">
+        <span class="label" [@labelAnimation]="sideNavState">Categories</span>
+      </a>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="admin/listProducts" title="Products">
+        <span class="label" [@labelAnimation]="sideNavState">Products</span>
+      </a>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="listCustomers" title="Customers">
+        <span class="label" [@labelAnimation]="sideNavState">Customers</span>
+      </a>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="listPromotions" title="Promotions">
+        <span class="label" [@labelAnimation]="sideNavState">Promotions</span>
+      </a>
+      <a mat-list-item routerLinkActive="active-list-item" routerLink="listOrders" title="Orders">
+        <span class="label" [@labelAnimation]="sideNavState">Orders</span>
+      </a>
+    </mat-nav-list>
+  </div>
+</mat-nav-list>

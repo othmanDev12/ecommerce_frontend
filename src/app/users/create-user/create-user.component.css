@@ -1,0 +1,23 @@
+.bt {
+    text-decoration: none;
+    color: black;
+}
+
+.margin_form {
+    margin-left: 120px;
+}
+
+.margin_form_button {
+    margin-left: 160px;
+}
+
+.margin_top_form {
+    margin-top: 10px;
+}
+
+.showImage {
+    height: 200px;
+    width: 220px;
+
+}
+

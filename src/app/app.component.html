@@ -1,0 +1,16 @@
+<app-header></app-header>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened="true" style="min-width:60px;  background: #F3F3F3;" autosize fixedTopGap="56">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content style="height: 1800px" [@onSideNavChange]="sideNavState">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

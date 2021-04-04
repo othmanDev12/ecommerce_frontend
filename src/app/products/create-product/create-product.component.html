@@ -1,0 +1,176 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()"  enctype="multipart/form-data">
+  <!--first part-->
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <div *ngIf="isCreateMode">
+          <h1>Create Product</h1>
+        </div>
+        <div *ngIf="!isCreateMode">
+          <h1>Update Product</h1>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary mr-1" type="submit"  (click)="onSubmit()"  ><i class="fas fa-save"></i> Save</button>
+        <button class="btn btn-danger mr-1" type="button" (click)="redirectToProductList()" ><i class="fas fa-ban"></i> Cancel </button>
+        <button class="btn btn-secondary" type="button" (click)="onReset()"><i class="fas fa-sync-alt"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- accordion -->
+  <div class="mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="accordion" class="mat-elevation-z8" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link bt" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Product Information
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body mt-3 mb-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label  for="productName">Product Name:</mat-label>
+                      <input  matInput type="text" formControlName="productName"  id="productName" placeholder="Product Name">
+                      <div *ngIf="productForm.controls['productName'].errors && !productForm.controls['productName'].pristine">
+                        <span class="red" *ngIf="productForm.controls['productName'].errors.required">the productName was required</span>
+                        <span class="red" *ngIf="productForm.controls['productName'].errors.duplicatedProductName">the productName is already token</span>
+                      </div>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%" appearance="fill" class="margin_form">
+                      <mat-label>Brand</mat-label>
+                      <mat-select formControlName="brand">
+                        <mat-option *ngFor="let key of keys; index as i" [value]="key">
+                          {{myBrand[key]}}
+                        </mat-option>
+                      </mat-select>
+                      <div *ngIf="productForm.controls['brand'].errors && !productForm.controls['brand'].pristine">
+                        <span class="red" *ngIf="productForm.controls['brand'].errors.required"> the brand was required</span>
+                      </div>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label for="model">Model:</mat-label>
+                      <input type="text" matInput formControlName="model" id="model" placeholder="model">
+                      <div *ngIf="productForm.controls['model'].errors && !productForm.controls['model'].pristine">
+                        <span class="red" *ngIf="productForm.controls['model'].errors.required">the model was required</span>
+                      </div>
+                    </mat-form-field>
+                     <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label for="cpu">CPU:</mat-label>
+                      <input type="text" matInput formControlName="cpu" id="cpu" placeholder="cpu">
+                       <div *ngIf="productForm.controls['cpu'].errors && !productForm.controls['cpu'].pristine">
+                         <span class="red" *ngIf="productForm.controls['cpu'].errors.required">the cpu was required</span>
+                       </div>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 100%"  appearance="fill" class="margin_form">
+                      <mat-label>Generation</mat-label>
+                      <mat-select formControlName="generation">
+                        <mat-option *ngFor="let key of generationKeys; index as i" [value]="key">
+                          {{myGeneration[key]}}
+                        </mat-option>
+                      </mat-select>
+                      <div *ngIf="productForm.controls['generation'].errors && !productForm.controls['generation'].pristine">
+                        <span class="red" *ngIf="productForm.controls['generation'].errors.required">the generation was required</span>
+                      </div>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label for="price">Price:</mat-label>
+                      <input type="number" matInput formControlName="price" id="price" placeholder="price">
+                      <div *ngIf="productForm.controls['price'].errors && !productForm.controls['price'].pristine">
+                        <span class="red" *ngIf="productForm.controls['price'].errors.required">the price was required</span>
+                      </div>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" style="width: 100%" class="margin_form">
+                      <mat-label>Release Date:</mat-label>
+                      <input matInput formControlName="releaseDate" [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <div *ngIf="productForm.controls['releaseDate'].errors && !productForm.controls['releaseDate'].pristine">
+                        <span class="red" *ngIf="productForm.controls['releaseDate'].errors.required"> the releaseDate was required</span>
+                      </div>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 100%" appearance="fill" class="margin_form">
+                      <mat-label>Category</mat-label>
+                      <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of categories; index as i"  [value]="category.categoryId">
+                          {{category.categoryName}}
+                        </mat-option>
+                      </mat-select>
+                      <div *ngIf="productForm.controls['category'].errors && !productForm.controls['category'].pristine">
+                        <span  class="red" *ngIf="productForm.controls['category'].errors.required">the category was required</span>
+                      </div>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%" appearance="fill" class="margin_form">
+                      <mat-label>Promotion</mat-label>
+                      <mat-select formControlName="promotion">
+                        <mat-option *ngFor="let promotion of promotions; index as i"   [value]="promotion.promotionId">
+                          {{promotion.promotionName}}</mat-option>
+                      </mat-select>
+                      <div *ngIf="productForm.controls['promotion'].errors && !productForm.controls['promotion'].pristine">
+                        <span class="red" *ngIf="productForm.controls['promotion'].errors.required"> the promotion was required</span>
+                      </div>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label  for="ram">RAM:</mat-label>
+                      <input formControlName="ram"  matInput type="text"   id="ram" placeholder="ram">
+                      <div *ngIf="productForm.controls['ram'].errors && !productForm.controls['ram'].pristine">
+                        <span class="red" *ngIf="productForm.controls['ram'].errors.required"> the ram was required</span>
+                      </div>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 100%" class="margin_form">
+                      <mat-label>Description:</mat-label>
+                      <textarea formControlName="description"  matInput cols="20" rows="15" placeholder="Ex. It makes me feel..."></textarea>
+                      <div *ngIf="productForm.controls['description'].errors && !productForm.controls['description'].pristine">
+                        <span class="red" *ngIf="productForm.controls['description'].errors.required">the description was required</span>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-10 mt-4">
+        <div id="accordion" class="mat-elevation-z8">
+          <div class="card">
+            <div class="card-header" id="headingTow">
+              <h5 class="mb-0">
+                <div>
+                  <button class="btn btn-link bt margin_accordion" data-toggle="collapse" data-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
+                    image
+                  </button>
+                  <input type="file" (change)="onChangeFile($event)" formControlName="file">
+                  <div *ngIf="productForm.controls['file'].errors && !productForm.controls['file'].pristine">
+                  </div>
+                </div>
+              </h5>
+            </div>
+
+            <div id="collapseTow" class="collapse show" aria-labelledby="headingTow" data-parent="#accordion">
+              <div class="card-body">
+                <img *ngIf="!isCreateMode && !toggleImage" class="showImage"  src="data:image/jpeg;base64,{{image}}">
+                <img *ngIf="!showImage && isCreateMode" class="showImage"  src="https://st.depositphotos.com/1038855/3500/i/950/depositphotos_35005403-stock-photo-laptop-wire-frame.jpg">
+                <img *ngIf="showImage && toggleImage" [src]="url" class="showImage">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+</form>
